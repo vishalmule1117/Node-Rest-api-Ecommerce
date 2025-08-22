@@ -1,0 +1,25 @@
+{
+  "name": "node-rest-api-ecommerce",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start" : "node app.js",
+    "dev" : "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vishalmule1117/Node-Rest-api-Ecommerce.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vishalmule1117/Node-Rest-api-Ecommerce/issues"
+  },
+  "homepage": "https://github.com/vishalmule1117/Node-Rest-api-Ecommerce#readme",
+  "dependencies": {
+    "express": "^5.1.0",
+    "nodemon": "^3.1.10"
+  }
+}
