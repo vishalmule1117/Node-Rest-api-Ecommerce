@@ -1,6 +1,9 @@
+require("dotenv").config();
 const express = require('express');
 const app = express();
-const port = 3002;
+const connectDB = require("./db/connect");
+
+const PORT = process.env.PORT || 3002;
 
 const product_routes = require("./routes/products")
 
@@ -11,6 +14,16 @@ app.get('/', (req, res) => {
 // Middleware for Router 
 app.use("/api/products", product_routes);
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+
+const start = async () =>  {
+  try {
+    await connectDB(process.env.MONGODB_URL);
+    app.listen(PORT, () => {
+      console.log(`Example app listening on port ${PORT}`)
+    })
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+start();
