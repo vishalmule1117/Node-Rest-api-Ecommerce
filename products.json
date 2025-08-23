@@ -1,0 +1,58 @@
+[
+{
+    "name" : "iphone 16",
+    "price" : 1154,
+    "feature" : true,
+    "company" : "apple"
+
+},
+{
+    "name" : "iphone 14",
+    "price" : 1234,
+    "feature" : false,
+    "company" : "apple"
+
+},
+{
+    "name" : "ipad",
+    "price" : 1333,
+    "feature" : false,
+    "company" : "apple"
+
+},
+{
+    "name" : "watch",
+    "price" : 1004,
+    "feature" : true,
+    "company" : "apple"
+
+},
+{
+    "name" : "galaxy 36",
+    "price" : 1225,
+    "feature" : false,
+    "company" : "samsung"
+
+},
+{
+    "name" : "galaxy new",
+    "price" : 1445,
+    "feature" : false,
+    "company" : "samsung"
+
+},
+{
+    "name" : "redmi note",
+    "price" : 1500,
+    "feature" : false,
+    "company" : "mi"
+
+},
+{
+    "name" : "redmi fold",
+    "price" : 1600,
+    "feature" : false,
+    "company" : "mi"
+
+}
+]
