@@ -2,21 +2,28 @@
 {
     "name" : "iphone 16",
     "price" : 1154,
-    "feature" : true,
+    "featured" : true,
     "company" : "apple"
 
 },
 {
     "name" : "iphone 14",
     "price" : 1234,
-    "feature" : false,
+    "featured" : false,
+    "company" : "apple"
+
+},
+{
+    "name" : "iphone",
+    "price" : 1244,
+    "featured" : false,
     "company" : "apple"
 
 },
 {
     "name" : "ipad",
     "price" : 1333,
-    "feature" : false,
+    "featured" : false,
     "company" : "apple"
 
 },
@@ -28,28 +35,28 @@
 
 },
 {
-    "name" : "galaxy 36",
+    "name" : "galaxy36",
     "price" : 1225,
-    "feature" : false,
+    "featured" : true,
     "company" : "samsung"
 
 },
 {
-    "name" : "galaxy new",
+    "name" : "galaxynew",
     "price" : 1445,
-    "feature" : false,
+    "featured" : true,
     "company" : "samsung"
 
 },
 {
-    "name" : "redmi note",
+    "name" : "redminote",
     "price" : 1500,
-    "feature" : false,
+    "featured" : false,
     "company" : "mi"
 
 },
 {
-    "name" : "redmi fold",
+    "name" : "redmifold",
     "price" : 1600,
     "feature" : false,
     "company" : "mi"
