@@ -84,10 +84,17 @@ const getAllProductsTesting = async (req,res) =>  {
         productApiData = productApiData.select(selectFix);
     }
     //! Pagination set as per need
-    let page = Number(req.query.page) || 1;
-    let limit = Number(req.query.limit) || 5;
-    let skip = (page - 1) * limit;
-    productApiData = productApiData.skip(skip).limit(limit);
+    if(req.query.page || req.query.limit){
+        //! Pagination set as per need
+       let page = Number(req.query.page) || 1;
+       let limit = Number(req.query.limit) || 5;
+       let skip = (page - 1) * limit;
+       productApiData = productApiData.skip(skip).limit(limit);
+    }else {
+        //! Pagination will set default result
+        const productList = await productApiData;
+        res.status(200).json( { status: true, data: { productList } } )
+    }
 
     //!  Fetch Data From MongoDB and Product Models
     const productList = await productApiData;
