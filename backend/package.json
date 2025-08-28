@@ -2,7 +2,7 @@
   "name": "node-rest-api-ecommerce",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "backend/index.js",
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js"
