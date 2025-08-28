@@ -94,14 +94,10 @@ const getAllProductsTesting = async (req,res) =>  {
         let skip = (page - 1) * limit;
         productApiData = productApiData.skip(skip).limit(limit);
     }else {
-         //! Pagination will set default result
+         //! Pagination will set default result and Fetch Data From MongoDB Local Compass
         const productList = await productApiData;
         res.status(200).json( { status: true, data: { productList } } )
     }
-
-    //!  Fetch Data From MongoDB Local Compass
-    const productList = await productApiData;
-    res.status(200).json( { status: true, data: { productList } } )
 }
 
 module.exports = {getAllProducts, getAllProductsTesting}
