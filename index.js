@@ -17,8 +17,8 @@ app.use("/api/products", product_routes);
 
 const start = async () =>  {
   try {
-    await connectDB(process.env.MONGODB_URL);
-    // await connectDB('mongodb+srv://advvish17:tQZ3tEXCOAaSVaL5@node-rest-api-ecommerce.gilxu7y.mongodb.net/advvish17?retryWrites=true&w=majority&appName=Node-Rest-api-Ecommerce');
+    // await connectDB(process.env.MONGODB_URL);
+     await connectDB('mongodb+srv://advvish17:tQZ3tEXCOAaSVaL5@node-rest-api-ecommerce.gilxu7y.mongodb.net/advvish17?retryWrites=true&w=majority&appName=Node-Rest-api-Ecommerce');
     app.listen(PORT, () => {
       console.log(`Example app listening on port ${PORT}`)
     })

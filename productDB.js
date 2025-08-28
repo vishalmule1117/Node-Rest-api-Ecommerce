@@ -8,7 +8,7 @@ const start = async () => {
     try {
         //! Connect data MongoDB URL
         await connectDB(process.env.MONGODB_URL);
-        // await connectDB('mongodb+srv://advvish17:tQZ3tEXCOAaSVaL5@node-rest-api-ecommerce.gilxu7y.mongodb.net/advvish17?retryWrites=true&w=majority&appName=Node-Rest-api-Ecommerce');
+         await connectDB('mongodb+srv://advvish17:tQZ3tEXCOAaSVaL5@node-rest-api-ecommerce.gilxu7y.mongodb.net/advvish17?retryWrites=true&w=majority&appName=Node-Rest-api-Ecommerce');
 
         // ! deleteMany() remove duplicate Entry of JSON data
         await Product.deleteMany();

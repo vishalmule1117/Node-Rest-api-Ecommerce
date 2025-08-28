@@ -1,57 +1,6 @@
 //! Created Product Schema
 
 const mongoose = require("mongoose");
-    // name : {
-    //     type : String,
-    //     require : true,
-    // },
-    // price : {
-    //     type: Number,
-    //     required : [true, "Price must provided"]
-    // },
-    // featured : {
-    //     type : Boolean,
-    //     default : false
-    // },
-    // rating : {
-    //     type : Number, 
-    //     value : 4.9
-    // },
-    // createdAt : {
-    //     type : Date,
-    //     default : Date.now(),
-    // },
-    // company : {
-    //     type : String,
-    //     enum : {
-    //         values : ["apple", "samsung", "dell", "mi"],
-    //         message : `{$VALUE} is not supported`,
-    //     }
-    // }
-    // rating: {
-    //     type: Number,
-    //     required: true,
-    //     min: 0,
-    //     max: 5
-    //   },
-    //   comment: {
-    //     type: String,
-    //     trim: true
-    //   },
-    //   date: {
-    //     type: Date,
-    //     default: Date.now
-    //   },
-    //   reviewerName: {
-    //     type: String,
-    //     trim: true
-    //   },
-    //   reviewerEmail: {
-    //     type: String,
-    //     trim: true,
-    //     lowercase: true
-    //   }
-    // }, { _id: false });
     const reviewSchema = new mongoose.Schema({
         rating: {
           type: Number,
