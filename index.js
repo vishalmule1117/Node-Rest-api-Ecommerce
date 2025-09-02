@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors')
 app.use(cors({
-  origin : "https://node-rest-api-ecommerce.onrender.com",
+  origin : "*",
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"]
 }));
