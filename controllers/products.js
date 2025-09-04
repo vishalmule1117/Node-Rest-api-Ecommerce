@@ -46,11 +46,11 @@ const getAllProducts = async (req,res) =>  {
     }else {
          //! Pagination will set default result and Fetch Data From MongoDB Local Compass
         const productList = await productApiData;
-        res.status(200).json( { status: true, data: { productList } } )
+        res.status(200).json( { status: true, productList } )
     }
 
     const productList = await productApiData;
-    res.status(200).json( { status: true, data: { productList } } )
+    res.status(200).json( { status: true,  productList } )
 }
 
 const getAllProductsTesting = async (req,res) =>  {
