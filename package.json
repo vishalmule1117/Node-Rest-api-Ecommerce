@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/vishalmule1117/Node-Rest-api-Ecommerce#readme",
   "dependencies": {
-    "bcryptjs": "^3.0.2",
+    "bcrypt": "^6.0.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^17.2.1",

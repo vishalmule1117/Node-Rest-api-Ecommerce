@@ -1,3 +1,4 @@
+import bcrypt from "bcrypt";
 import express from "express";
 import User from "../models/User.js";
 
@@ -7,6 +8,8 @@ const router = express.Router();
 router.post("/signup",async (req,res)=> {
     try {
         const {name, email, password} = req.body;
+
+        //! Validate input
         if (!name || !email || !password) {
             return res.status(400).json({ error: "All fields are required" });
         }
@@ -15,8 +18,17 @@ router.post("/signup",async (req,res)=> {
         const existingUser = await User.findOne({ email });
         if(existingUser) return res.status(400).json({msg: "user already exits"});
 
-        //! Save User
-        const newUser =  new User({name, email, password});
+        //! HasPassword
+        const saltRounds = 10;
+        const HasPassword = await bcrypt.hash(password, saltRounds);
+        //! password save with the hasshpassword
+
+        //! Create new user with hashed password
+        const newUser =  new User({
+            name,
+            email,
+            password: HasPassword
+        });
         await newUser.save();
 
         return res.status(201).json({
