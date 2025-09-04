@@ -44,4 +44,36 @@ router.post("/signup",async (req,res)=> {
     }
 });
 
+
+//!Login User
+router.post("/login",async (req,res)=> {
+    try {
+        const {name, email, password} = req.body;
+
+        //! Validate input
+        if (!email || !password) {
+            return res.status(400).json({ error: "Email and Password are required" });
+        }
+          
+        //! Check if user exits
+        const user = await User.findOne({ email });
+        if(!user) return res.status(400).json({msg: "user not found"});
+
+        //! Compare password with HasPassword
+        const isMatch = await bcrypt.compare(password, user.password);
+        if(!isMatch) return res.status(400).json({msg: "invalid password"});
+
+        return res.status(201).json({
+            message: "Login successfully",
+            user: {
+              id: user._id,
+              name: user.name,
+              email: user.email
+            }
+        });
+    }catch(error) {
+        return res.status(500).json({ error: error.message });
+    }
+});
+
 export default router;

@@ -25,6 +25,7 @@ app.get('/', (req, res) => {
 // Middleware for Router 
 app.use("/api/products", productRoutes);
 app.use("/api/auth", authRoutes);
+
 const start = async () =>  {
   try {
     // await connectDB(process.env.MONGODB_URL);
