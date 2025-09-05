@@ -100,7 +100,7 @@ router.post("/login",async (req,res)=> {
 
 router.post("/logout", (req, res) => {
     // Get token from Authorization header
-    const token = req.header["authorization"]?.split(" ")[1];
+    const token = req.headers["authorization"]?.split(" ")[1];
 
     //Added token from blacklist
     tokenBlacklist.push(token);
@@ -116,7 +116,7 @@ router.post("/logout", (req, res) => {
 
 export const verifyToken = (req, res, next) => {
     //get token
-    const token = req.header["authorization"]?.split(" ")[1];
+    const token = req.headers["authorization"]?.split(" ")[1];
     if(!token) return res.status(401).json({msg: "No token provided"});
 
     //Check if token is blacklisted
@@ -126,7 +126,7 @@ export const verifyToken = (req, res, next) => {
 
     //verify JWT token
     try {
-        const decoded = jwt.veriy(token, process.env.JWT_SECRET);
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
         req.user = decoded;
         next();
     }catch(error) {
