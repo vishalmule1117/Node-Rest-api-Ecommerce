@@ -1,10 +1,15 @@
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import express from "express";
 import User from "../models/User.js";
-
 const router = express.Router();
 
-//Register User
+//! in memory token blacklist 
+let tokenBlacklist = []; // toke added here afetr logout
+
+// =========================
+//! signup User (/signup)
+// =========================
 router.post("/signup",async (req,res)=> {
     try {
         const {name, email, password} = req.body;
@@ -44,8 +49,10 @@ router.post("/signup",async (req,res)=> {
     }
 });
 
+// =========================
+//! Login User (/Login)
+// =========================
 
-//!Login User
 router.post("/login",async (req,res)=> {
     try {
         const {name, email, password} = req.body;
@@ -63,17 +70,70 @@ router.post("/login",async (req,res)=> {
         const isMatch = await bcrypt.compare(password, user.password);
         if(!isMatch) return res.status(400).json({msg: "invalid password"});
 
+        //! Generate JWT token
+        const token = jwt.sign(
+            //payload
+            {id: user._id, email: user.email},
+            //Seacrate key
+            process.env.JWT_SECRET,
+            //option
+            {expiresIn: process.env.JWT_EXPIRES_IN || "1d" }
+        )
+
         return res.status(201).json({
             message: "Login successfully",
             user: {
               id: user._id,
               name: user.name,
               email: user.email
-            }
+            },
+            token
         });
     }catch(error) {
         return res.status(500).json({ error: error.message });
     }
 });
+
+// =========================
+//! Logout User (/logout)
+// =========================
+
+router.post("/logout", (req, res) => {
+    // Get token from Authorization header
+    const token = req.header["authorization"]?.split(" ")[1];
+
+    //Added token from blacklist
+    tokenBlacklist.push(token);
+
+    //Send success response
+    return res.json({msg : "Logged out successfully"})
+
+});
+
+// =========================
+//! Middleware to protect routes
+// =========================
+
+export const verifyToken = (req, res, next) => {
+    //get token
+    const token = req.header["authorization"]?.split(" ")[1];
+    if(!token) return res.status(401).json({msg: "No token provided"});
+
+    //Check if token is blacklisted
+    if(tokenBlacklist.includes(token)) {
+        return res.status(401).json({msg: "Token has been logged out"});
+    }
+
+    //verify JWT token
+
+    try {
+        const decoded = jwt.veriy(toke, process.env.JWT_SECRET);
+        req.user = decoded;
+        next();
+    }catch(error) {
+        return res.status(401).json({ msg: "Invalid token" });
+    }
+
+}
 
 export default router;
