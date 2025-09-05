@@ -11,6 +11,8 @@ app.use(cors({
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"]
 }));
+// Allow preflight requests
+app.options("*", cors());
 app.use(express.json());
 import connectDB from "./db/connect.js";
 
