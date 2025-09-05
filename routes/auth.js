@@ -75,7 +75,7 @@ router.post("/login",async (req,res)=> {
             //payload
             {id: user._id, email: user.email},
             //Seacrate key
-            process.env.JWT_SECRET,
+            process.env.JWT_SECRET || "mySuperSecretKey123@!!",
             //option
             {expiresIn: process.env.JWT_EXPIRES_IN || "1d" }
         )
