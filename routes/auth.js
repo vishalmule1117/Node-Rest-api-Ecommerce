@@ -125,9 +125,8 @@ export const verifyToken = (req, res, next) => {
     }
 
     //verify JWT token
-
     try {
-        const decoded = jwt.veriy(toke, process.env.JWT_SECRET);
+        const decoded = jwt.veriy(token, process.env.JWT_SECRET);
         req.user = decoded;
         next();
     }catch(error) {
