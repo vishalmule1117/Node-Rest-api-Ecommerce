@@ -106,6 +106,8 @@ const singleProdutById = async (req, res) => {
     if (!product) {
       return res.status(404).json({ msg: "No product found with this id" });
     }
+    // add id field and remove _id if you want
+    product.id = product._id;
 
     res.json(product);
   } catch (error) {
