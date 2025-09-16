@@ -43,11 +43,19 @@ const getAllProducts = async (req, res) => {
     let limit = Number(req.query.limit) || 8;
     let skip = (page - 1) * limit;
 
-    // Get total count of products
-    const totalCount = await productApiData.clone().countDocuments();
-    productApiData = productApiData.skip(skip).limit(limit);
+    // Base query (can include filters or sorting)
+    let productApiData = Product.find();
 
-    res.status(200).json({ status: true, productList, totalCount });
+    // 🔹 Get total count BEFORE applying skip/limit
+    const totalCount = await productApiData.clone().countDocuments();
+
+    // Apply pagination
+    const productList = await productApiData.skip(skip).limit(limit);
+    res.status(200).json({
+      status: true,
+      productList,
+      totalCount,
+    });
   } else {
     //! Pagination will set default result and Fetch Data From MongoDB Local Compass
     const productList = await productApiData;
