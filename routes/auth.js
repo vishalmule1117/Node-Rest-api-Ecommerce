@@ -56,7 +56,7 @@ router.post("/signup", async (req, res) => {
 
 router.post("/login", async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { email, password } = req.body;
 
     //! Validate input
     if (!email || !password) {
@@ -104,7 +104,7 @@ router.post("/logout", (req, res) => {
   const token = req.headers["authorization"]?.split(" ")[1];
 
   //Added token from blacklist
-  tokenBlacklist.push(token);
+  if (token) tokenBlacklist.push(token);
 
   //Send success response
   return res.json({ msg: "Logged out successfully" });
@@ -117,6 +117,7 @@ router.post("/logout", (req, res) => {
 export const verifyToken = (req, res, next) => {
   //get token
   const token = req.headers["authorization"]?.split(" ")[1];
+  console.log("Incoming Token:", token);
   if (!token) return res.status(401).json({ msg: "No token provided" });
 
   //Check if token is blacklisted
@@ -126,7 +127,11 @@ export const verifyToken = (req, res, next) => {
 
   //verify JWT token
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(
+      token,
+      process.env.JWT_SECRET || "mySuperSecretKey123@!!"
+    );
+    console.log("Decoded Payload:", decoded);
     req.user = decoded;
     next();
   } catch (error) {
