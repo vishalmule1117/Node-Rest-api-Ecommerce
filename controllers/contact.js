@@ -1,5 +1,5 @@
 import Contact from "../models/Contact.js";
-import User from "../models/User.js"; // your user schema
+import User from "../models/User.js";
 
 export const createContact = async (req, res) => {
   try {
@@ -9,8 +9,8 @@ export const createContact = async (req, res) => {
       return res.status(400).json({ error: "Message is required" });
     }
 
-    // Get logged-in user from request
-    const userId = req.user._id; // assuming you have auth middleware
+    // userId comes from JWT
+    const userId = req.user.id;
     const user = await User.findById(userId);
 
     if (!user) {
@@ -21,7 +21,7 @@ export const createContact = async (req, res) => {
       name: user.name,
       email: user.email,
       message,
-      accountNumber: user.accountNumber, // attach user-facing account number
+      accountNumber: user.accountNumber,
       userId: user._id,
     });
 

@@ -15,6 +15,11 @@ const contactSchema = new mongoose.Schema({
     required: [true, "Message is required"],
     trim: true,
   },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
   createdAt: {
     type: Date,
     default: Date.now,
