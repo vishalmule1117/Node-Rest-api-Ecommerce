@@ -2,46 +2,58 @@ const Product = require("../models/product");
 
 const getAllProducts = async (req, res) => {
   try {
-    const { company, title, featured, category, brand, beauty, sort, select } =
-      req.query;
+    const {
+      company,
+      title,
+      featured,
+      category,
+      brand,
+      beauty,
+      sort,
+      select,
+      all,
+    } = req.query;
 
     const queryObject = {};
-
     if (company) queryObject.company = company;
-    if (title) queryObject.title = { $regex: title, $options: "i" }; // Advanced search
+    if (title) queryObject.title = { $regex: title, $options: "i" };
     if (featured) queryObject.featured = featured;
     if (category) queryObject.category = category;
     if (brand) queryObject.brand = brand;
     if (beauty) queryObject.beauty = beauty;
 
-    // ✅ Base query with filters
+    // Base query
     let productApiData = Product.find(queryObject);
 
-    // ✅ Sorting must come BEFORE pagination
+    // Sorting
     if (sort) {
-      let sortFix = sort.split(",").join(" "); // example: sort=price,-rating
+      let sortFix = sort.split(",").join(" ");
       productApiData = productApiData.sort(sortFix);
     }
 
-    // ✅ Field selection
+    // Field selection
     if (select) {
-      let selectFix = select.split(",").join(" "); // example: select=title,price
+      let selectFix = select.split(",").join(" ");
       productApiData = productApiData.select(selectFix);
     }
 
-    // ✅ Pagination
+    let productList;
+    let totalCount = 0;
     let page = Number(req.query.page) || 1;
     let limit = Number(req.query.limit) || 8;
-    let skip = (page - 1) * limit;
 
-    // ✅ Total count (before skip/limit)
-    const totalCount = await Product.countDocuments(queryObject);
-
-    // ✅ Apply skip + limit after sorting
-    productApiData = productApiData.skip(skip).limit(limit);
-
-    // ✅ Execute query
-    const productList = await productApiData;
+    if (all === "true") {
+      // Fetch all products
+      productList = await productApiData;
+      totalCount = productList.length;
+      page = 1;
+      limit = totalCount;
+    } else {
+      // Pagination
+      const skip = (page - 1) * limit;
+      totalCount = await Product.countDocuments(queryObject);
+      productList = await productApiData.skip(skip).limit(limit);
+    }
 
     res.status(200).json({
       status: true,
