@@ -30,7 +30,6 @@ app.get("/", (req, res) => {
 // Middleware for Router
 app.use("/api/products", productRoutes);
 app.use("/api/auth", authRoutes);
-// app.use("/:id", productRoutes);
 app.use("/api/contact", createContact);
 
 const start = async () => {
