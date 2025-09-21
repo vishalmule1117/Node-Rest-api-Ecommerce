@@ -2,8 +2,9 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import express from "express";
 import User from "../models/User.js";
+import { customAlphabet } from "nanoid";
 const router = express.Router();
-
+const nanoid = customAlphabet("0123456789ABCDEF", 8);
 //! in memory token blacklist
 let tokenBlacklist = []; // toke added here afetr logout
 
@@ -29,11 +30,15 @@ router.post("/signup", async (req, res) => {
     const HasPassword = await bcrypt.hash(password, saltRounds);
     //! password save with the hasshpassword
 
+    //! Generate account number
+    const accountNumber = nanoid();
+
     //! Create new user with hashed password
     const newUser = new User({
       name,
       email,
       password: HasPassword,
+      accountNumber,
     });
     await newUser.save();
 
@@ -43,6 +48,7 @@ router.post("/signup", async (req, res) => {
         id: newUser._id,
         name: newUser.name,
         email: newUser.email,
+        accountNumber: newUser.accountNumber,
       },
     });
   } catch (error) {
