@@ -88,17 +88,21 @@ const getAllProductsTesting = async (req, res) => {
     productApiData = productApiData.select(selectFix);
   }
 
+  //! Pagination set as per need
+  let page = Number(req.query.page) || 1;
+  let limit = Number(req.query.limit) || 8;
+  let skip = (page - 1) * limit;
+
+  let productList;
+
+  //! If page or limit is provided, apply pagination
   if (req.query.page || req.query.limit) {
-    //! Pagination set as per need
-    let page = Number(req.query.page) || 1;
-    let limit = Number(req.query.limit) || 5;
-    let skip = (page - 1) * limit;
-    productApiData = productApiData.skip(skip).limit(limit);
+    productList = await productApiData.skip(skip).limit(limit);
   } else {
-    //! Pagination will set default result and Fetch Data From MongoDB Local Compass
-    const productList = await productApiData;
-    res.status(200).json({ status: true, data: { productList } });
+    //! No pagination: fetch all products
+    productList = await productApiData;
   }
+  res.status(200).json({ status: true, data: { productList } });
 };
 
 const singleProdutById = async (req, res) => {
