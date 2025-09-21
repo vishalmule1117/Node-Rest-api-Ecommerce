@@ -19,9 +19,9 @@ import connectDB from "./db/connect.js";
 
 const PORT = process.env.PORT || 3002;
 
+import createContact from "./routes/contact.js";
 import productRoutes from "./routes/products.js";
 import authRoutes from "./routes/auth.js";
-
 app.get("/", (req, res) => {
   res.send("Hello Vishal!");
 });
@@ -30,6 +30,7 @@ app.get("/", (req, res) => {
 app.use("/api/products", productRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/:id", productRoutes);
+app.use("/api/contact", createContact);
 
 const start = async () => {
   try {

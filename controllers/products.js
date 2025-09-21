@@ -113,7 +113,7 @@ const singleProdutById = async (req, res) => {
 
     res.json(product);
   } catch (error) {
-    res.ststus(500).json({ msg: error });
+    res.status(500).json({ msg: error });
   }
 };
 
