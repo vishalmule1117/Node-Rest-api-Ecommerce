@@ -22,6 +22,7 @@ const PORT = process.env.PORT || 3002;
 import productRoutes from "./routes/products.js";
 import authRoutes from "./routes/auth.js";
 import createContact from "./routes/contact.js";
+import address from "./routes/address.js";
 
 app.get("/", (req, res) => {
   res.send("Hello Vishal!");
@@ -31,6 +32,7 @@ app.get("/", (req, res) => {
 app.use("/api/products", productRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/contact", createContact);
+app.use("/api/address", address);
 
 const start = async () => {
   try {
