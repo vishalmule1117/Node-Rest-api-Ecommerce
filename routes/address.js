@@ -54,16 +54,18 @@ router.get("/", verifyToken, async (req, res) => {
 //! Delete address
 router.delete("/:id", verifyToken, async (req, res) => {
   try {
-    const address = await address.findOneAndDelete({
+    const deleted = await Address.findOneAndDelete({
       _id: req.params.id,
       userId: req.user.id,
     });
 
-    if (!address) {
-      return res.status(400).json({ message: "Address not found" });
+    if (!deleted) {
+      return res.status(404).json({ message: "Address not found" });
     }
-    res.json({ message: "Address Deleted" });
+
+    res.json({ message: "Address deleted successfully" });
   } catch (err) {
+    console.error("Delete error:", err);
     res.status(500).json({ message: err.message });
   }
 });
