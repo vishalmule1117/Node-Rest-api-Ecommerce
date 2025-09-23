@@ -51,6 +51,8 @@ router.get("/", verifyToken, async (req, res) => {
   }
 });
 
+//! Update  and address
+
 //! Delete address
 router.delete("/:id", verifyToken, async (req, res) => {
   try {
@@ -71,6 +73,25 @@ router.delete("/:id", verifyToken, async (req, res) => {
 });
 
 //? set default address
+router.put("/:id", verifyToken, async (req, res) => {
+  try {
+    const updated = await Address.findOneAndUpdate(
+      { _id: req.params.id, userId: req.user.id },
+      { $set: req.body },
+      { new: true }
+    );
+
+    if (!updated) {
+      return res.status(404).json({ message: "Address not found" });
+    }
+
+    res.json(updated);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+//Remove default from other addresses
 router.put("/default/:id", verifyToken, async (req, res) => {
   try {
     //Remove default from other addresses
